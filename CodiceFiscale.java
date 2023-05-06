@@ -237,12 +237,14 @@ public class CodiceFiscale {
 	* conversionDict is actually just the inverted map of the evenCharsDict HashMap.
 	*/
 	private void loadConversionDict() {
+		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		/*
 		for each key, value pair in the evenCharDisct set of key and values
 		key and value are put swapped in the conversionDict HashMap.
 		*/
 		for(HashMap.Entry<String, Integer> entry : evenCharsDict.entrySet()){
-		    conversionDict.put(entry.getValue(), entry.getKey());
+			if (letters.contains(entry.getKey())) {
+		    conversionDict.put(entry.getValue(), entry.getKey());}
 		}
 	}
 
