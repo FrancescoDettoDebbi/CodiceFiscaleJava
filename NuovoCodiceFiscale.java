@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 /**
  * this simple class generates the "codice fiscale" of a person.
+ * the implemented rules can be found at this url:
+ * https://it.wikipedia.org/wiki/Codice_fiscale#Generazione_del_codice_fiscale
  * @author Francesco Debbi
  *
  */
@@ -76,7 +78,19 @@ public class NuovoCodiceFiscale {
 	// getPorzione methods
 	/**
 	 * this method constructs a String of 3 letters, representing the name of
-	 * the person in its codiceFiscale
+	 * the person in its codiceFiscale.
+	 * 
+	 * wikipedia:
+	 * Vengono prese le consonanti del nome o dei nomi (se ve ne è più di uno) 
+	 * nel loro ordine (primo nome, di seguito il secondo e così via) in questo modo: 
+	 * se il nome contiene quattro o più consonanti, si scelgono 
+	 * la prima, la terza e la quarta (per esempio: Gianfranco → GFR), 
+	 * altrimenti le prime tre in ordine (per esempio: Tiziana → TZN). 
+	 * Se il nome non ha consonanti a sufficienza, si prendono anche le vocali; 
+	 * in ogni caso le vocali vengono riportate dopo le consonanti 
+	 * (per esempio: Luca → LCU). Nel caso in cui il nome abbia meno di tre lettere,
+	 * la parte di codice viene completata aggiungendo la lettera X.
+	 *  
 	 * @param nome: a String representing the first name of the person
 	 * @return a String of 3 letters, representing the first name of the person in its codiceFiscale
 	 */
@@ -112,6 +126,18 @@ public class NuovoCodiceFiscale {
 	/**
 	 * this method constructs a String of 3 letters, representing the last name of
 	 * the person in its codiceFiscale
+	 * 
+	 * wikipedia:
+	 * Vengono prese le consonanti del cognome o dei cognomi (se ve ne è più di uno) 
+	 * nel loro ordine (primo cognome, di seguito il secondo e così via). 
+	 * Se le consonanti sono insufficienti, si prelevano anche le vocali 
+	 * (se non sono sufficienti le consonanti, 
+	 * si prelevano la prima, la seconda e la terza vocale), sempre nel loro ordine; comunque,
+	 * le vocali vengono riportate dopo le consonanti (per esempio: Rosi → RSO).
+	 * Nel caso in cui un cognome abbia meno di tre lettere, 
+	 * la parte di codice viene completata aggiungendo la lettera X (per esempio: Fo → FOX).
+	 * Per le donne, viene preso in considerazione il solo cognome da nubile
+	 * 
 	 * @param nome: a String representing the last name of the person
 	 * @return a String of 3 letters, representing the last name of the person in its codiceFiscale
 	 */
@@ -143,6 +169,8 @@ public class NuovoCodiceFiscale {
 	}
 
 	/**
+	 * wikipedia:
+	 * Anno di nascita (due cifre): si prendono le ultime due cifre dell'anno di nascita;
 	 * 
 	 * @param anno an integer representing the person's year of birth.
 	 * @return a String containing the last 2 digits of the year of birth.
@@ -153,7 +181,21 @@ public class NuovoCodiceFiscale {
 	
 	/**
 	 * this method finds out which letter is associated with the person's
-	 * month of birth in the monthLetterDict HashMap.
+	 * month of birth.
+	 * 
+	 * wikipedia:
+	 * Mese di nascita (una lettera): a ogni mese dell'anno viene associata una lettera 
+	 * Le lettere sono state scelte in modo da evitare quelle possibilmente equivoche. 
+	 * Sono state escluse:
+	 * F (simile a E)
+	 * G (simile a C)
+	 * I (simile a 1)
+	 * N (simile a M)
+	 * O (simile a 0 e Q)
+	 * Q (simile a 0 ed O)
+	 * Questa cosa non avviene nel carattere di controllo, 
+	 * dove questo accorgimento non è necessario.
+	 * 
 	 * @param mese an integer representing the person's month of birth.
 	 * @return a String containing 1 character associated with the person's month of birth.
 	 */
@@ -190,8 +232,18 @@ public class NuovoCodiceFiscale {
 	
 	/**
 	 * this method constructs the 2 digits String representing the person's day of birth
+	 * 
+	 * wikipedia:
+	 * Si prendono le due cifre del giorno di nascita 
+	 * (se è compreso tra 1 e 9 si pone uno zero come prima cifra); 
+	 * per i soggetti di sesso femminile, a tale cifra va sommato il numero 40.
+	 * In questo modo il campo contiene la doppia informazione giorno di nascita e sesso.
+	 * Avremo pertanto la seguente casistica: gli uomini 
+	 * avranno il giorno con cifra da 01 a 31, 
+	 * mentre per le donne la cifra relativa al giorno sarà da 41 a 71.
+	 * 
 	 * @param giorno an integer representing the person's day of birth.
-	 * @param sesso 
+	 * @param sesso the Sesso value representing the person's biological sex.
 	 * @return
 	 */
 	private String getGiorno(int giorno, Sesso sesso) {
@@ -211,8 +263,18 @@ public class NuovoCodiceFiscale {
 	}
 	
 	/**
-	 * this method finds out which code is associated to the person's city of birth
-	 * in the database HasMap.
+	 * this method finds out which code is associated to the person's city of birth.
+	 * 
+	 * wikipedia:
+	 * Per identificare il comune di nascita si utilizza il codice impropriamente detto Belfiore,
+	 * composto da una lettera e tre cifre numeriche. 
+	 * Per i nati al di fuori del territorio italiano, 
+	 * sia che si tratti di cittadini italiani nati all'estero, 
+	 * oppure stranieri, si considera lo stato estero di nascita: 
+	 * in tal caso la sigla inizia con la lettera Z 
+	 * seguita dal numero identificativo dello Stato.
+	 * Il codice Belfiore è lo stesso usato per il nuovo Codice catastale.
+	 * 
 	 * @param comune a String representing the person's city of birth
 	 * @return a String containing a 4 characters code
 	 * @throws FileNotFoundException 
@@ -238,10 +300,29 @@ public class NuovoCodiceFiscale {
 	/**
 	 * this methods finds the last character of the codiceFiscale in base of the
 	 * first 15.
+	 * 
+	 * wikipedia:
+	 * A partire dai quindici caratteri alfanumerici ricavati in precedenza, 
+	 * si determina il carattere di controllo (indicato a volte come CIN, Control Internal Number) 
+	 * in base a un particolare algoritmo che opera in questo modo:
+	 * 1.	si da un numero ad ogni carattere alfanumerico, 
+	 * 		partendo da 1 (in informatica normalmente si parte da 0): 
+	 * 		si mettono da una parte quelli il cui numero è dispari e da un'altra quelli pari;
+	 * 2. 	i caratteri vengono convertiti in valori numerici secondo le seguenti tabelle
+	 * 		(https://it.wikipedia.org/wiki/Codice_fiscale#Generazione_del_codice_fiscale)
+	 * 3.	i valori che si ottengono dai caratteri alfanumerici pari e dispari 
+	 * 		vanno sommati tra di loro e il risultato va diviso per 26; 
+	 * 		il resto della divisione fornirà il codice identificativo, 
+	 * 		ottenuto dalla seguente tabella di conversione:
+	 * 		(https://it.wikipedia.org/wiki/Codice_fiscale#Generazione_del_codice_fiscale)
+	 * 
 	 * @param codice a String containing the first 15 characters of the codiceFiscale
 	 * @return A string representing the person's codiceFiscale
 	 */
 	private String getCarattereDiControllo(String codice) {
+		/* at first these were instance variables, but since they are only used
+		 * inside this method, the've all been moved here. 
+		*/
 		HashMap<String, Integer> oddCharsDict = new HashMap<String, Integer>();
 		oddCharsDict.put("0", 1);
 		oddCharsDict.put("1", 0);
@@ -279,6 +360,7 @@ public class NuovoCodiceFiscale {
 		oddCharsDict.put("X", 25);
 		oddCharsDict.put("Y", 24);
 		oddCharsDict.put("Z", 23);
+		
 		HashMap<String, Integer> evenCharsDict = new HashMap<String, Integer>();
 		evenCharsDict.put("0", 0);
 		evenCharsDict.put("1", 1);
@@ -316,8 +398,13 @@ public class NuovoCodiceFiscale {
 		evenCharsDict.put("X", 23);
 		evenCharsDict.put("Y", 24);
 		evenCharsDict.put("Z", 25);
+		
 		HashMap<Integer, String> conversionDict = new HashMap<Integer, String>();
 		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		/*
+		for each "key, value" pair in the evenCharDisct set of key and values
+		key and value are put swapped in the conversionDict HashMap.
+		*/
 		for(HashMap.Entry<String, Integer> entry : evenCharsDict.entrySet()){
 			if (letters.contains(entry.getKey())) {
 		    conversionDict.put(entry.getValue(), entry.getKey());}
