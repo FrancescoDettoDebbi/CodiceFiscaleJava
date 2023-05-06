@@ -6,15 +6,15 @@ import java.time.LocalDate;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		CodiceFiscale c = new CodiceFiscale("Francesco", "Debbi", LocalDate.of(1998, 7, 23), Sesso.MASCHIO, "Scandiano");
-		CodiceFiscale d = new CodiceFiscale("Andrea", "Debbi", LocalDate.of(1968, 2, 21), Sesso.MASCHIO, "Sassuolo");
-		CodiceFiscale e = new CodiceFiscale("Cinzia", "Rossini", LocalDate.of(1969, 3, 30), Sesso.FEMMINA, "Sassuolo");
+		CodiceFiscale c = new CodiceFiscale("Mario", "Rossi", LocalDate.of(1989, 8, 9), Sesso.MASCHIO, "Maranello");
+		CodiceFiscale d = new CodiceFiscale("Luca", "Nervi", LocalDate.of(1939, 9, 1), Sesso.MASCHIO, "Como");
+		CodiceFiscale e = new CodiceFiscale("Paola", "Mariello", LocalDate.of(1969, 7, 20), Sesso.FEMMINA, "Firenze");
 		System.out.println(c.getCode());
 		System.out.println(d.getCode());
 		System.out.println(e.getCode());
-		NuovoCodiceFiscale f = new NuovoCodiceFiscale("Francesco", "Debbi", LocalDate.of(1998, 7, 23), Sesso.MASCHIO, "Scandiano");
-		NuovoCodiceFiscale g = new NuovoCodiceFiscale("Andrea", "Debbi", LocalDate.of(1968, 2, 21), Sesso.MASCHIO, "Sassuolo");
-		NuovoCodiceFiscale h = new NuovoCodiceFiscale("Cinzia", "Rossini", LocalDate.of(1969, 3, 30), Sesso.FEMMINA, "Sassuolo");
+		NuovoCodiceFiscale f = new NuovoCodiceFiscale("Mario", "Marione", LocalDate.of(1914, 1, 31), Sesso.MASCHIO, "Milano");
+		NuovoCodiceFiscale g = new NuovoCodiceFiscale("Piero", "Franchi", LocalDate.of(1972, 12, 17), Sesso.MASCHIO, "Roma");
+		NuovoCodiceFiscale h = new NuovoCodiceFiscale("Graziella", "Egraziealcazzo", LocalDate.of(2012, 3, 12), Sesso.FEMMINA, "Napoli");
 		System.out.println(f.getCode());
 		System.out.println(g.getCode());
 		System.out.println(h.getCode());
