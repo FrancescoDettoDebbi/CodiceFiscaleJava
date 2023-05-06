@@ -317,8 +317,10 @@ public class NuovoCodiceFiscale {
 		evenCharsDict.put("Y", 24);
 		evenCharsDict.put("Z", 25);
 		HashMap<Integer, String> conversionDict = new HashMap<Integer, String>();
+		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		for(HashMap.Entry<String, Integer> entry : evenCharsDict.entrySet()){
-		    conversionDict.put(entry.getValue(), entry.getKey());
+			if (letters.contains(entry.getKey())) {
+		    conversionDict.put(entry.getValue(), entry.getKey());}
 		}
 		int sommatoria = 0;
 		for (int i = 0; i < codice.length(); i++) {
