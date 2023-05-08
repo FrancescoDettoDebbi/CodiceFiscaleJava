@@ -25,7 +25,7 @@ public class NuovoCodiceFiscale {
 	private final String VOWELS = "AEIOU";
 	
 	/**
-	 * this default character to insert in the first/last name portion of the codiceFiscale.
+	 * this is the default character to insert in the first/last name portion of the codiceFiscale.
 	 * it is used if and only if there are not enough letters in the first or last name
 	 */
 	private final String DEFAULT_CHARACTER = "X";
